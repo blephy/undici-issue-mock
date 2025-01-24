@@ -1,4 +1,4 @@
-import { errors, interceptors, getGlobalDispatcher } from 'undici';
+import { errors } from 'undici';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createNodeServer, HOST, PORT } from '../setup.js';
 import { Fetcher } from '../../src/Fetcher.js';
@@ -24,7 +24,6 @@ describe('[integration] with a real server', () => {
 
   it('should work on 200', async (): Promise<void> => {
     const response = await fetcher.fetch('/', {
-      dispatcher: getGlobalDispatcher().compose(interceptors.responseError({ throwOnError: true })),
       method: 'POST',
     });
 
@@ -36,9 +35,6 @@ describe('[integration] with a real server', () => {
   it('should work on 400', async (): Promise<void> => {
     await expect(async () => {
       await fetcher.fetch('/error', {
-        dispatcher: getGlobalDispatcher().compose(
-          interceptors.responseError({ throwOnError: true }),
-        ),
         method: 'POST',
       });
     }).rejects.toThrow(
