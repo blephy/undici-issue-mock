@@ -1,12 +1,12 @@
 import { errors, MockAgent } from 'undici';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { HOST, PORT } from '../setup.js';
+import { origin } from '../setup.js';
 import { Fetcher } from '../../src/Fetcher.js';
 import { Logger } from '../utils/Logger.js';
+import { errorExpected } from '../utils/errorExpected.js';
 
 describe('[integration] with a real server', () => {
   let server: MockAgent;
-  const origin = `http://${HOST}:${PORT}`;
 
   let fetcher: Fetcher<typeof origin>;
 
@@ -64,17 +64,7 @@ describe('[integration] with a real server', () => {
       await fetcher.fetch('/error', {
         method: 'POST',
       });
-    }).rejects.toThrow(
-      new errors.ResponseError('Response Error', 400, {
-        body: { data: 'error occurred' },
-        headers: expect.objectContaining({
-          connection: 'keep-alive',
-          'content-length': '25',
-          'content-type': 'application/json',
-          'keep-alive': 'timeout=5',
-        }),
-      }),
-    );
+    }).rejects.toThrow(errorExpected);
     expect(server.pendingInterceptors()).toHaveLength(0);
   });
 });

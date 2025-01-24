@@ -1,12 +1,11 @@
-import { errors } from 'undici';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { createNodeServer, HOST, PORT } from '../setup.js';
+import { createNodeServer, origin } from '../setup.js';
 import { Fetcher } from '../../src/Fetcher.js';
 import { Logger } from '../utils/Logger.js';
+import { errorExpected } from '../utils/errorExpected.js';
 
 describe('[integration] with a real server', () => {
   let server: ReturnType<typeof createNodeServer>;
-  const origin = `http://${HOST}:${PORT}/`;
 
   let fetcher: Fetcher<typeof origin>;
 
@@ -16,7 +15,7 @@ describe('[integration] with a real server', () => {
     fetcher = new Fetcher({
       baseUrl: origin,
       throwOnError: true,
-      logger: new Logger()
+      logger: new Logger(),
     });
   });
 
@@ -39,16 +38,6 @@ describe('[integration] with a real server', () => {
       await fetcher.fetch('/error', {
         method: 'POST',
       });
-    }).rejects.toThrow(
-      new errors.ResponseError('Response Error', 400, {
-        body: { data: 'error occurred' },
-        headers: expect.objectContaining({
-          connection: 'keep-alive',
-          'content-length': '25',
-          'content-type': 'application/json',
-          'keep-alive': 'timeout=5',
-        }),
-      }),
-    );
+    }).rejects.toThrow(errorExpected);
   });
 });
