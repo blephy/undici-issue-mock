@@ -2,6 +2,7 @@ import { errors, MockAgent } from 'undici';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { HOST, PORT } from '../setup.js';
 import { Fetcher } from '../../src/Fetcher.js';
+import { Logger } from '../utils/Logger.js';
 
 describe('[integration] with a real server', () => {
   let server: MockAgent;
@@ -17,6 +18,7 @@ describe('[integration] with a real server', () => {
     fetcher = new Fetcher({
       baseUrl: origin,
       throwOnError: true,
+      logger: new Logger(),
     });
   });
 

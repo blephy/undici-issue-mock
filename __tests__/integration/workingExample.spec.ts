@@ -2,6 +2,7 @@ import { errors } from 'undici';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createNodeServer, HOST, PORT } from '../setup.js';
 import { Fetcher } from '../../src/Fetcher.js';
+import { Logger } from '../utils/Logger.js';
 
 describe('[integration] with a real server', () => {
   let server: ReturnType<typeof createNodeServer>;
@@ -15,6 +16,7 @@ describe('[integration] with a real server', () => {
     fetcher = new Fetcher({
       baseUrl: origin,
       throwOnError: true,
+      logger: new Logger()
     });
   });
 
