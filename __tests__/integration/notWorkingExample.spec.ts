@@ -1,6 +1,6 @@
 import { errors, interceptors, getGlobalDispatcher, MockAgent } from 'undici';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { createNodeServer, HOST, PORT } from '../setup.js';
+import { HOST, PORT } from '../setup.js';
 import { Fetcher } from '../../src/Fetcher.js';
 
 describe('[integration] with a real server', () => {
@@ -48,7 +48,7 @@ describe('[integration] with a real server', () => {
     expect(server.pendingInterceptors()).toHaveLength(0);
   });
 
-  it('should work on 400', async (): Promise<void> => {
+  it('should work on 400 but this does not', async (): Promise<void> => {
     server
       .get(origin)
       .intercept({
