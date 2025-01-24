@@ -1,4 +1,4 @@
-import { errors, interceptors, getGlobalDispatcher, MockAgent } from 'undici';
+import { errors, MockAgent } from 'undici';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { HOST, PORT } from '../setup.js';
 import { Fetcher } from '../../src/Fetcher.js';
@@ -38,7 +38,6 @@ describe('[integration] with a real server', () => {
       .times(1);
 
     const response = await fetcher.fetch('/', {
-      dispatcher: getGlobalDispatcher().compose(interceptors.responseError({ throwOnError: true })),
       method: 'POST',
     });
 
@@ -61,9 +60,6 @@ describe('[integration] with a real server', () => {
 
     await expect(async () => {
       await fetcher.fetch('/error', {
-        dispatcher: getGlobalDispatcher().compose(
-          interceptors.responseError({ throwOnError: true }),
-        ),
         method: 'POST',
       });
     }).rejects.toThrow(
