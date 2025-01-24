@@ -1,23 +1,14 @@
 import { performance } from 'node:perf_hooks';
 
-import CacheableLookup from 'cacheable-lookup';
 import { Agent, fetch, getGlobalDispatcher, interceptors, setGlobalDispatcher } from 'undici';
 
 import type { Dispatcher, HeadersInit, Response, Headers } from 'undici';
 import type { FetcherOptionsInterface } from './FetcherOptionInterface.js';
 
 class Fetcher<BaseUrl extends string | undefined = undefined> {
-  public static GetGlobalDispatcher: () => Dispatcher = getGlobalDispatcher;
-
-  public static SetGlobalDispatcher: <DispatcherImplementation extends Dispatcher>(
-    dispatcher: DispatcherImplementation,
-  ) => void = setGlobalDispatcher;
-
   public static Interceptors: typeof interceptors = interceptors;
 
   private static Dispatcher: Dispatcher;
-
-  private static DnsCache: CacheableLookup;
 
   private static readonly DefaultOptions: Required<Omit<FetcherOptionsInterface, 'logger'>> = {
     // @ts-expect-error -- noop
@@ -42,14 +33,7 @@ class Fetcher<BaseUrl extends string | undefined = undefined> {
   protected logger: FetcherOptionsInterface['logger'] | undefined;
 
   static {
-    Fetcher.DnsCache = new CacheableLookup({});
     Fetcher.Dispatcher = new Agent({
-      connect: {
-        lookup: Fetcher.DnsCache.lookup.bind(Fetcher.DnsCache),
-        keepAlive: true,
-        timeout: 10_000,
-        allowH2: true,
-      },
       bodyTimeout: 60_000,
       headersTimeout: 60_000,
       allowH2: true,

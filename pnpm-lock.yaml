@@ -15,9 +15,6 @@ importers:
       '@types/node':
         specifier: 22.10.10
         version: 22.10.10
-      cacheable-lookup:
-        specifier: 7.0.0
-        version: 7.0.0
       prettier:
         specifier: 3.4.2
         version: 3.4.2
@@ -320,10 +317,6 @@ packages:
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
     engines: {node: '>=8'}
-
-  cacheable-lookup@7.0.0:
-    resolution: {integrity: sha512-+qJyx4xiKra8mZrcwhjMRMUhD5NR1R8esPkzIYxX96JiecFoxAXFuz/GpR3+ev4PE1WamHip78wV0vcmPQtp8w==}
-    engines: {node: '>=14.16'}
 
   chai@5.1.2:
     resolution: {integrity: sha512-aGtmf24DW6MLHHG5gCx4zaI3uBq3KRtxeVs0DjFH6Z0rDNbsvTxFASFvdj79pxjxZ8/5u3PIiN3IwEIQkiiuPw==}
@@ -710,8 +703,6 @@ snapshots:
   assertion-error@2.0.1: {}
 
   cac@6.7.14: {}
-
-  cacheable-lookup@7.0.0: {}
 
   chai@5.1.2:
     dependencies:

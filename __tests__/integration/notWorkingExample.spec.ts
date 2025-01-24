@@ -1,4 +1,4 @@
-import { MockAgent } from 'undici';
+import { MockAgent, setGlobalDispatcher } from 'undici';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { origin } from '../setup.js';
 import { Fetcher } from '../../src/Fetcher.js';
@@ -13,7 +13,7 @@ describe('[integration] with a real server', () => {
   beforeAll(() => {
     server = new MockAgent();
 
-    Fetcher.SetGlobalDispatcher(server);
+    setGlobalDispatcher(server);
 
     fetcher = new Fetcher({
       baseUrl: origin,
@@ -25,7 +25,7 @@ describe('[integration] with a real server', () => {
   afterAll(async () => {
     await server.close();
 
-    Fetcher.SetGlobalDispatcher(Fetcher['Dispatcher']);
+    setGlobalDispatcher(Fetcher['Dispatcher']);
   });
 
   it('should work on 200', async (): Promise<void> => {
