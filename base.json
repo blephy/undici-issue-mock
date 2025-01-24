@@ -1,0 +1,30 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Base config",
+    "compilerOptions": {
+      "newLine": "lf",
+      "allowJs": true,
+      "checkJs": true,
+      "pretty": true,
+      "downlevelIteration": true,
+      "preserveConstEnums": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "verbatimModuleSyntax": true,
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "noUnusedLocals": true,
+      "noImplicitOverride": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "allowSyntheticDefaultImports": true,
+      "allowUnreachableCode": false,
+      "noEmit": true,
+      "skipLibCheck": true,
+      "declaration": false,
+      "sourceMap": false,
+      "isolatedModules": true,
+      "incremental": true
+    }
+  }
+  

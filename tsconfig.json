@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "ESM codebase",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  },
+  "include": ["."],
+  "exclude": ["**/node_modules/**", "**/reports/**", "**/dist/**"]
+}
