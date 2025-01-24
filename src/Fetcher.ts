@@ -13,9 +13,6 @@ class Fetcher<BaseUrl extends string | undefined = undefined> {
   private static readonly DefaultOptions: Required<Omit<FetcherOptionsInterface, 'logger'>> = {
     // @ts-expect-error -- noop
     baseUrl: undefined,
-    cache: false,
-    // @see https://github.com/nodejs/undici/discussions/2963
-    retry: false,
     throwOnError: true,
     headers: {},
   };
@@ -53,12 +50,6 @@ class Fetcher<BaseUrl extends string | undefined = undefined> {
 
     const interceptorsCompose: Array<Dispatcher.DispatcherComposeInterceptor> = [];
 
-    if (this.options.retry !== false) {
-      interceptorsCompose.push(Fetcher.Interceptors.retry(this.options.retry));
-    }
-    if (this.options.cache !== false) {
-      interceptorsCompose.push(Fetcher.Interceptors.cache(this.options.cache));
-    }
     if (this.options.throwOnError) {
       interceptorsCompose.push(
         Fetcher.Interceptors.responseError({

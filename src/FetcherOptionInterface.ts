@@ -1,4 +1,4 @@
-import type { HeadersInit, interceptors } from 'undici';
+import type { HeadersInit } from 'undici';
 
 interface FetcherOptionsInterface<BaseUrl extends string | undefined = undefined> {
   logger?:
@@ -11,8 +11,6 @@ interface FetcherOptionsInterface<BaseUrl extends string | undefined = undefined
   baseUrl?: BaseUrl;
   headers?: HeadersInit;
   throwOnError?: boolean;
-  cache?: interceptors.CacheInterceptorOpts | false;
-  retry?: interceptors.RetryInterceptorOpts | false;
 }
 
 export type { FetcherOptionsInterface };
